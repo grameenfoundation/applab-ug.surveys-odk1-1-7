@@ -19,10 +19,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.listeners.DiskSyncListener;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 import org.odk.collect.android.tasks.DiskSyncTask;
 
 import android.app.AlertDialog;
@@ -90,6 +93,26 @@ public class FormChooserList extends ListActivity implements DiskSyncListener {
         }
 
         Cursor c = managedQuery(FormsColumns.CONTENT_URI, null, null, null, null);
+        
+        List<String> formsToRemoveFromDb = new ArrayList<String>();
+
+        c.moveToFirst();
+        while (c.isAfterLast() == false) 
+        {
+            String filePath = c.getString(c.getColumnIndex(FormsColumns.FORM_FILE_PATH));
+            File fileToRemove = new File(filePath);
+            if (!fileToRemove.exists()) {
+            	formsToRemoveFromDb.add(filePath);
+            }
+            c.moveToNext();
+        }
+        if (formsToRemoveFromDb.size() > 0) {
+        	Log.d("FORM REMOVAL", "we have a form to remove");
+        	for (String formToRemoveFromDb : formsToRemoveFromDb) {
+        		Collect.getInstance().getContentResolver().delete(FormsColumns.CONTENT_URI, FormsColumns.FORM_FILE_PATH + "=?", new String[] {formToRemoveFromDb});
+        	}
+        }
+        c = managedQuery(FormsColumns.CONTENT_URI, null, null, null, null);
 
         String[] data = new String[] {
                 FormsColumns.DISPLAY_NAME, FormsColumns.DISPLAY_SUBTEXT

@@ -122,7 +122,7 @@ public class DownloadFormsTask extends
                     v.put(FormsColumns.FORM_FILE_PATH, dl.getAbsolutePath());
 
                     HashMap<String, String> formInfo = FileUtils.parseXML(dl);
-                    v.put(FormsColumns.DISPLAY_NAME, formInfo.get(FileUtils.TITLE));
+                    /*v.put(FormsColumns.DISPLAY_NAME, formInfo.get(FileUtils.TITLE));*/v.put(FormsColumns.DISPLAY_NAME, fd.formName);
                     v.put(FormsColumns.MODEL_VERSION, formInfo.get(FileUtils.MODEL));
                     v.put(FormsColumns.UI_VERSION, formInfo.get(FileUtils.UI));
                     v.put(FormsColumns.JR_FORM_ID, formInfo.get(FileUtils.FORMID));
@@ -172,7 +172,7 @@ public class DownloadFormsTask extends
             if (message.equalsIgnoreCase("")) {
                 message = Collect.getInstance().getString(R.string.success);
             }
-            result.put(fd.formName, message);
+            result.put(fd.formName, message);Log.d("fname", fd.formName);
         }
 
         return result;
@@ -195,7 +195,7 @@ public class DownloadFormsTask extends
         String rootName = formName.replaceAll("[^\\p{L}\\p{Digit}]", " ");
         rootName = rootName.replaceAll("\\p{javaWhitespace}+", " ");
         rootName = rootName.trim();
-
+        Log.d("ROOTNAME", rootName);
         // proposed name of xml file...
         String path = Collect.FORMS_PATH + "/" + rootName + ".xml";
         int i = 2;
@@ -248,6 +248,8 @@ public class DownloadFormsTask extends
     private void downloadFile(File f, String downloadUrl) throws Exception {
         URI uri = null;
         try {
+        	Log.d("FILEDOWNLOAD", "downloading file "+f.getName());
+        	Log.d("DOWNLOADURL", downloadUrl);
             // assume the downloadUrl is escaped properly
             URL url = new URL(downloadUrl);
             uri = url.toURI();
@@ -266,7 +268,7 @@ public class DownloadFormsTask extends
 
         // set up request...
         HttpGet req = WebUtils.createOpenRosaHttpGet(uri);
-
+        Log.d("URI", uri.getPath());
         HttpResponse response = null;
         try {
             response = httpclient.execute(req, localContext);

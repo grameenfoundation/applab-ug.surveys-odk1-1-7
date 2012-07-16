@@ -131,6 +131,7 @@
 <string name="quit_application">Exit %s</string>
 <string name="quit_entry">Save Form and Exit</string>
 <string name="refresh">Refresh</string>
+<string name="register_new_farmer">Register New Farmer</string>
 <string name="replace_audio">Replace Sound</string>
 <string name="replace_barcode">Replace Barcode</string>
 <string name="replace_image">Replace Picture</string>
@@ -162,7 +163,7 @@
 <string name="url_error">Sorry, invalid URL!</string>
 <string name="username">Username</string>
 <string name="view_hierarchy">Go To Prompt</string>
-<string name="open_data_kit">CKW Search</string>
+<string name="open_data_kit">CKW Surveys</string>
 <string name="general_preferences">Change Settings</string>
 <string name="click_to_web">Tap to visit http://grameenfoundation.org</string>
 <string name="first_run">Do first run on restart</string>
@@ -189,7 +190,7 @@
 <string name="form_scan_starting">Scanning for forms...</string>
 <string name="form_scan_finished">Form scanning completed</string>
 <string name="powered_by_odk">v1.1.7 - Powered by GF\'s Applab Uganda</string>
-<string name="default_odk_formlist">/formList</string>
+<string name="default_odk_formlist">/newFormList</string>
 <string name="default_odk_submission">/submission</string>
 <string name="access_error">Error while accessing %s: </string>
 <string name="manifest_server_error">Manifest reply does not report an OpenRosa version -- bad server?</string>

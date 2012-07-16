@@ -547,7 +547,9 @@ public class FormDownloadList extends ListActivity implements FormListDownloader
             for (int i = 0; i < result.size(); i++) {
                 HashMap<String, String> item = new HashMap<String, String>();
                 item.put(FORMNAME, mFormNamesAndURLs.get(ids.get(i)).formName);
+                Log.d("FormName", mFormNamesAndURLs.get(ids.get(i)).formName);
                 item.put(FORMID_DISPLAY, "ID: " + mFormNamesAndURLs.get(ids.get(i)).formID);
+                Log.d("FORMID_DISPLAY", mFormNamesAndURLs.get(ids.get(i)).formID);
                 item.put(FORMID, mFormNamesAndURLs.get(ids.get(i)).formID);
 
                 // Insert the new form in alphabetical order.

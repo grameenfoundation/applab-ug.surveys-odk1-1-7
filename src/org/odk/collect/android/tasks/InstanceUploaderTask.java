@@ -138,12 +138,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, HashMap<Strin
 
                 String uriString = c.getString(c.getColumnIndex(InstanceColumns.STATUS));
                 Log.d("uriStr", uriString);
-               /* String locationInterviewee = uriString.substring(1);
-                String[] tokens = locationInterviewee.split(",");
-                String intervieweeId = tokens[1];
-                String location = tokens[0];*/
-                //Log.d("SUBMISSION_URL", "url = "+urlString);
-                //if (urlString == null) {
+
                     SharedPreferences settings =
                         PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
                    String urlString = settings.getString(PreferencesActivity.KEY_SERVER_URL, null);
@@ -151,7 +146,6 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, HashMap<Strin
                         settings.getString(PreferencesActivity.KEY_SUBMISSION_URL, "/submission");
                     urlString = urlString + submissionUrl;
                     
-                //}
                 Log.d("SUBMISSION_URL", "updated url ="+urlString);
                  
                 

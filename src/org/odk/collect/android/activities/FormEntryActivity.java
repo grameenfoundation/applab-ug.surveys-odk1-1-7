@@ -84,6 +84,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -162,6 +164,9 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
 
     private FormLoaderTask mFormLoaderTask;
     private SaveToDiskTask mSaveToDiskTask;
+
+	private boolean firstAutoSaveDone;
+	private int swipeCounter;
 
     enum AnimationType {
         LEFT, RIGHT, FADE
@@ -719,7 +724,7 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
                     }
                 }
 
-                saveAs.setText(saveName);
+                saveAs.setText(mFormPath.substring(mFormPath.lastIndexOf("/") + 1, mFormPath.indexOf(".")));
 
                 // Create 'save' button
                 ((Button) endView.findViewById(R.id.save_exit_button))
@@ -1241,7 +1246,7 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
                                             f.delete();
                                         }
                                     }
-
+                                    discardChanges();
                                     finishReturnInstance();
                                     break;
 
@@ -1718,10 +1723,12 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
             if (velocityX > 0) {
                 mBeenSwiped = true;
                 showPreviousView();
+                trackSwipeCount();
                 return true;
             } else {
                 mBeenSwiped = true;
                 showNextView();
+                trackSwipeCount();
                 return true;
             }
         }
@@ -1759,5 +1766,50 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
     public void advance() {
         next();
     }
+    
+	private void discardChanges() {
+		File backupFile = new File(mInstancePath + ".bak");
+		if (backupFile.exists()) {
+			backupFile.renameTo(new File(mInstancePath));
+		} else {
+			File file = new File(mInstancePath);
+			if (file.exists()) {
+				file.delete();
+			}
+		}
+	}
+
+	private void executeAutoSave() throws UnsupportedEncodingException,
+			IOException {
+
+		// Create backup file
+		File instanceFile = new File(mInstancePath);
+		if ((!firstAutoSaveDone) && instanceFile.exists()) {
+			instanceFile.renameTo(new File(mInstancePath + ".bak"));
+		}
+		firstAutoSaveDone = true;
+
+		mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), false, false, mErrorMessage);
+		mSaveToDiskTask.execute();
+	}
+
+	private void trackSwipeCount() {
+		this.swipeCounter++;
+		if (this.swipeCounter == 3) {
+			this.swipeCounter = 0;
+			// showDialog(SAVING_DIALOG);
+
+			try {
+				executeAutoSave();
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.data_saved_ok), Toast.LENGTH_SHORT)
+						.show();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

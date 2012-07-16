@@ -128,7 +128,7 @@ public class DiskSyncTask extends AsyncTask<Void, String, String> {
                     }
                 } else {
                     Log.w(t, "file referenced by content provider does not exist " + sqlFile);
-                    //xFormsToAdd.re
+                    xFormsToAdd.remove(sqlFile);
                 }
             }
 
@@ -136,6 +136,7 @@ public class DiskSyncTask extends AsyncTask<Void, String, String> {
             for (int i = 0; i < xFormsToAdd.size(); i++) {
                 ContentValues values = new ContentValues();
                 File addMe = xFormsToAdd.get(i);
+                Log.d("File"+i, addMe.getAbsolutePath());
                 if (!addMe.exists()) {
                 	continue;
                 }

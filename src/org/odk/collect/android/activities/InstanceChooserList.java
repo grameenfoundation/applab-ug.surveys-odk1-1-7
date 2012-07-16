@@ -152,10 +152,8 @@ public class InstanceChooserList extends ListActivity {
 	        inputStream.close();
 	        outputStream.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

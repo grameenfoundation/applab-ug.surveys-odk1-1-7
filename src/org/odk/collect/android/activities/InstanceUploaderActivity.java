@@ -37,10 +37,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import applab.client.surveys.R;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -170,15 +172,43 @@ public class InstanceUploaderActivity extends Activity implements InstanceUpload
                     results.getString(results.getColumnIndex(InstanceColumns.DISPLAY_NAME));
                 String id = results.getString(results.getColumnIndex(InstanceColumns._ID));
                 message.append(name + " - " + result.get(id) + "\n\n");
+                if (result.get(id).equalsIgnoreCase(getString(R.string.success))) {
+	                String filePath = results.getString(results.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
+	                filePath = filePath.substring(0, filePath.lastIndexOf("/"));
+	                Log.d("FOR DELETION", filePath);
+	                File file = new File(filePath);
+	                deleteDir(file);
+                }
             }
         } else {
             message.append(getString(R.string.no_forms_uploaded));
         }
-
         createAlertDialog(message.toString().trim());
     }
 
-
+    private static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+                String[] children = dir.list();
+                for (int i = 0; i < children.length; i++) {
+                        boolean success = deleteDir(new File(dir, children[i]));
+                        if (!success) {
+                                return false;
+                        }
+                }
+        }
+        Log.d("FILE DELETION", dir.getName());
+        return dir.delete();
+}
+    private void deleteUploadedInstancesAndFiles(HashMap<String, String> result) {
+    	/*for (Entry<String, String> entry : result.entrySet())
+        {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Cursor results =
+                    managedQuery(InstanceColumns.CONTENT_URI, null, selection.toString(), selectionArgs,
+                        null);
+        }*/
+    }
     @Override
     public void progressUpdate(int progress, int total) {
         mAlertMsg = getString(R.string.sending_items, progress, total);

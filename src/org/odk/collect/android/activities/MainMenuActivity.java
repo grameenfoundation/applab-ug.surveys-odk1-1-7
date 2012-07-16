@@ -117,7 +117,7 @@ public class MainMenuActivity extends ApplabActivity {
             }
         });
         registerFarmerButton = (Button) findViewById(R.id.register_farmer_button);
-        registerFarmerButton.setText(getString(applab.client.R.string.register_new_farmer));
+        registerFarmerButton.setText(getString(R.string.register_new_farmer));
         // review data button. expects a result.
         mReviewDataButton = (Button) findViewById(R.id.review_data);
         mReviewDataButton.setText(getString(R.string.review_data_button));
