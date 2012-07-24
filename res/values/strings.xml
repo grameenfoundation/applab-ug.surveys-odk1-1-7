@@ -70,7 +70,7 @@
 <string name="entering_repeat">Add Group</string>
 <string name="entering_repeat_ask">Add New Group?</string>
 <string name="enter_data">Fill Blank Form</string>
-<string name="enter_data_button">Fill Blank Form</string>
+<string name="enter_data_button">Fill Blank Form (%s)</string>
 <string name="enter_data_description">You are at the start of \"%s\". Swipe the screen as shown below to begin.</string>
 <string name="enter_data_message">To navigate, swipe your finger horizontally on the screen as if turning pages in a book. Press the Menu button for more choices.</string>
 <string name="error_downloading">Error Getting Form</string>
@@ -140,7 +140,7 @@
 <string name="required_answer_error">Sorry, this response is required!</string>
 <string name="review">continue</string>
 <string name="review_data">Edit Saved Form</string>
-<string name="review_data_button">Edit Saved Form</string>
+<string name="review_data_button">Edit Saved Form (%s)</string>
 <string name="saved_data">Incomplete (%s)</string>
 <string name="save_all_answers">Save Form</string>
 <string name="save_data_message">Please save form to keep your responses.</string>
@@ -149,7 +149,7 @@
 <string name="send">send</string>
 <string name="sending_items">Sending %1$s of %2$s form(s)</string>
 <string name="send_data">Send Finalized Form</string>
-<string name="send_data_button">Send Finalized Form</string>
+<string name="send_data_button">Send Finalized Form (%s)</string>
 <string name="send_selected_data">Send Selected</string>
 <string name="server_auth_credentials">Please enter username and password for server:\n%s</string>
 <string name="server_requires_auth">Server Requires Authentication</string>
@@ -222,4 +222,5 @@
 <string name="test_survey_msg3">\nWould you like to do a test survey instead?</string>
 <string name="test_survey_msg4"> NOTE: You will NOT be compensated for doing a test survey.</string>
 <string name="perform_test_survey">Perform Test Survey?</string>
+<string name="forgot_farmerid">Forgot Farmer\'s ID</string>
 </resources>
