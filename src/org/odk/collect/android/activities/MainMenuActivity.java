@@ -19,11 +19,15 @@ import java.util.regex.Pattern;
 
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.preferences.PreferencesActivity;
+import org.odk.collect.android.provider.InstanceProviderAPI;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -59,6 +63,7 @@ public class MainMenuActivity extends ApplabActivity {
     private Button mReviewDataButton;
     private Button mGetFormsButton;
     private Button registerFarmerButton;
+    private Button forgotIdButton;
     
     private AlertDialog mAlertDialog;
 
@@ -118,6 +123,14 @@ public class MainMenuActivity extends ApplabActivity {
         });
         registerFarmerButton = (Button) findViewById(R.id.register_farmer_button);
         registerFarmerButton.setText(getString(R.string.register_new_farmer));
+        String showFarmerRegistrationButton = getResources().getString(R.string.show_farmer_registration);
+        registerFarmerButton.setVisibility(showFarmerRegistrationButton.equalsIgnoreCase("yes") ? View.VISIBLE : View.GONE);
+        
+        forgotIdButton = (Button)findViewById(R.id.forgot_id_button);
+        forgotIdButton.setText(R.string.forgot_farmerid);
+        String showForgotFarmerButton = getResources().getString(R.string.show_farmer_registration);
+        forgotIdButton.setVisibility(showForgotFarmerButton.equalsIgnoreCase("yes") ? View.VISIBLE : View.GONE);
+        
         // review data button. expects a result.
         mReviewDataButton = (Button) findViewById(R.id.review_data);
         mReviewDataButton.setText(getString(R.string.review_data_button));
@@ -236,7 +249,7 @@ public class MainMenuActivity extends ApplabActivity {
     }
     
     private boolean checkID(String text) {
-        Pattern pattern = Pattern.compile("[a-zA-Z]{2}[0-9]{4,5}+");
+    	Pattern pattern = Pattern.compile(getResources().getString(R.string.farmer_id_regex));
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();
     }
@@ -266,5 +279,32 @@ public class MainMenuActivity extends ApplabActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }    
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateButtons();
     }
+
+
+	private void updateButtons() {
+		Cursor cursor = managedQuery(FormsColumns.CONTENT_URI, null, null, null, null);
+		startManagingCursor(cursor);
+		mEnterDataButton.setText(getString(R.string.enter_data_button, cursor.getCount()));
+		
+		String reviewDataSelection = InstanceColumns.STATUS + "!=?";
+        String[] reviewDataSelectionArgs = {InstanceProviderAPI.STATUS_SUBMITTED};
+        Cursor reviewDataSelectionCursor = managedQuery(InstanceColumns.CONTENT_URI, null, reviewDataSelection, reviewDataSelectionArgs, InstanceColumns.STATUS + " desc");
+        mReviewDataButton.setText(getString(R.string.review_data_button, reviewDataSelectionCursor.getCount()));
+		
+		// get all complete or failed submission instances
+        String selection = InstanceColumns.STATUS + "=? or " + InstanceColumns.STATUS + "=?";
+        String selectionArgs[] = {
+                InstanceProviderAPI.STATUS_COMPLETE, InstanceProviderAPI.STATUS_SUBMISSION_FAILED
+        };         
+        Cursor c = managedQuery(InstanceColumns.CONTENT_URI, null, selection, selectionArgs, null);
+        startManagingCursor(c);
+        mSendDataButton.setText(getString(R.string.send_data_button, c.getCount()));
+	}
 }
