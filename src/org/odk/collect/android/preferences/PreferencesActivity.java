@@ -289,6 +289,7 @@ public class PreferencesActivity extends PreferenceActivity implements
         });
 
         WebUtils.clearAllCredentials();
+        mUsernamePreference.setEnabled(false);
     }
 
 
@@ -305,6 +306,7 @@ public class PreferencesActivity extends PreferenceActivity implements
         });
 
         WebUtils.clearAllCredentials();
+        mPasswordPreference.setEnabled(false);
     }
 
 
@@ -343,12 +345,12 @@ public class PreferencesActivity extends PreferenceActivity implements
             if (mServerUrlPreference != null) {
                 mServerUrlPreference.setEnabled(true);
             }
-            if (mUsernamePreference != null) {
-                mUsernamePreference.setEnabled(true);
-            }
-            if (mPasswordPreference != null) {
-                mPasswordPreference.setEnabled(true);
-            }
+            //if (mUsernamePreference != null) {
+                mUsernamePreference.setEnabled(false);
+            //}
+            //if (mPasswordPreference != null) {
+                mPasswordPreference.setEnabled(false);
+            //}
             if (mFormListUrlPreference != null) {
                 mFormListUrlPreference.setText(getText(R.string.default_odk_formlist).toString());
                 mFormListUrlPreference.setEnabled(false);
@@ -377,7 +379,7 @@ public class PreferencesActivity extends PreferenceActivity implements
             }
 
         }
-
+        lp.setEnabled(false);
     }
 
 
