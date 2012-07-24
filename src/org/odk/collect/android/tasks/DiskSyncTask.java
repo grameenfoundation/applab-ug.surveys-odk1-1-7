@@ -84,7 +84,7 @@ public class DiskSyncTask extends AsyncTask<Void, String, String> {
                         try {
                             fields = FileUtils.parseXML(sqlFile);
                         } catch (RuntimeException e) {
-                            return sqlFile.getName() + " :: " + e.getMessage();
+                            return " ";//sqlFile.getName() + " :: " + e.getMessage();
                         }
 
                         String title = fields.get(FileUtils.TITLE);
@@ -148,7 +148,7 @@ public class DiskSyncTask extends AsyncTask<Void, String, String> {
                     try {
                         fields = FileUtils.parseXML(addMe);
                     } catch (RuntimeException e) {
-                        return addMe.getName() + " :: " + e.getMessage();
+                        return " "; //addMe.getName() + " :: " + e.getMessage();
                     }
 
                     String title = fields.get(FileUtils.TITLE);
