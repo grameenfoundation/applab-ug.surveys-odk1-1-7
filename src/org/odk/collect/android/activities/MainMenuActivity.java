@@ -23,7 +23,6 @@ import org.odk.collect.android.provider.InstanceProviderAPI;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
 import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -70,6 +69,8 @@ public class MainMenuActivity extends ApplabActivity {
     private static boolean EXIT = true;
     private EditText farmerNameEditBox;
 
+    private static final int REGISTRATION_CODE = 3;
+    private static final int FORGOT_ID_CODE = 4;
     // private static boolean DO_NOT_EXIT = false;
 
     @Override
@@ -125,6 +126,13 @@ public class MainMenuActivity extends ApplabActivity {
         registerFarmerButton.setText(getString(R.string.register_new_farmer));
         String showFarmerRegistrationButton = getResources().getString(R.string.show_farmer_registration);
         registerFarmerButton.setVisibility(showFarmerRegistrationButton.equalsIgnoreCase("yes") ? View.VISIBLE : View.GONE);
+        
+        this.registerFarmerButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                /*onRequestBrowserIntentButtonClick("getFarmerRegistrationForm",
+                        REGISTRATION_CODE);*/
+            }
+        });
         
         forgotIdButton = (Button)findViewById(R.id.forgot_id_button);
         forgotIdButton.setText(R.string.forgot_farmerid);
@@ -184,7 +192,6 @@ public class MainMenuActivity extends ApplabActivity {
          startActivity(i);
 	}
 
-
 	@Override
     protected void onPause() {
         super.onPause();
@@ -192,7 +199,6 @@ public class MainMenuActivity extends ApplabActivity {
             mAlertDialog.dismiss();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
