@@ -46,7 +46,7 @@
 <string name="data_saved_ok">Form successfully saved!</string>
 <string name="default_completed">Default to Finalized</string>
 <string name="default_completed_summary">Mark form as finalized by default</string>
-<string name="default_server_url">http://test.applab.org:8888/zebra</string>
+<string name="default_server_url">http://ckwapps.applab.org:8888/zebra</string>
 <string name="delete_confirm">Delete %s form(s)?</string>
 <string name="delete_file">Delete Selected</string>
 <string name="delete_no">Do Not Delete</string>
