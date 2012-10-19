@@ -81,8 +81,10 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         if (validateStatus != VALIDATED) {
             return validateStatus;
         }
-
-        FormEntryActivity.mFormController.postProcessInstance();
+        
+        if (mMarkCompleted) {
+        	FormEntryActivity.mFormController.postProcessInstance();
+        }
 
         if (mSave && exportData(mMarkCompleted)) {
             return SAVED_AND_EXIT;

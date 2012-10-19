@@ -1587,7 +1587,9 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
      */
     @Override
     public void savingComplete(int saveStatus) {
-        dismissDialog(SAVING_DIALOG);
+    	if (mProgressDialog.isShowing()) {
+    		dismissDialog(SAVING_DIALOG);
+    	}
         switch (saveStatus) {
             case SaveToDiskTask.SAVED:
                 Toast.makeText(this, getString(R.string.data_saved_ok), Toast.LENGTH_SHORT).show();
@@ -1723,12 +1725,10 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
             if (velocityX > 0) {
                 mBeenSwiped = true;
                 showPreviousView();
-                trackSwipeCount();
                 return true;
             } else {
                 mBeenSwiped = true;
                 showNextView();
-                trackSwipeCount();
                 return true;
             }
         }
@@ -1785,14 +1785,28 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
 		// Create backup file
 		File instanceFile = new File(mInstancePath);
 		if ((!firstAutoSaveDone) && instanceFile.exists()) {
-			instanceFile.renameTo(new File(mInstancePath + ".bak"));
+		//	instanceFile.renameTo(new File(mInstancePath + ".bak"));
+			FileUtils.copyFile(new File(mInstancePath), new File(mInstancePath + ".bak"));
 		}
 		firstAutoSaveDone = true;
-
-		mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), false, false, mErrorMessage);
-		mSaveToDiskTask.execute();
+		
+		if (mSaveToDiskTask == null) {
+			mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), false, false, mErrorMessage);
+			Log.w(t, "Going to start first auto-save");
+			mSaveToDiskTask.execute();
+		} else if (mSaveToDiskTask != null && mSaveToDiskTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+			mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), false, false, mErrorMessage);
+			Log.w(t, "Going to start subsequent auto-save");
+			mSaveToDiskTask.execute();
+		} else {
+			//Log.w(t, "test");
+			//if (mSaveToDiskTask != null) {
+			 Log.w(t, mSaveToDiskTask.getStatus().toString());
+			//}           
+		}
 	}
 
+	
 	private void trackSwipeCount() {
 		this.swipeCounter++;
 		if (this.swipeCounter == 3) {
@@ -1801,9 +1815,11 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
 
 			try {
 				executeAutoSave();
-				Toast.makeText(getApplicationContext(),
-						getString(R.string.data_saved_ok), Toast.LENGTH_SHORT)
-						.show();
+				if (mSaveToDiskTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.data_saved_ok), Toast.LENGTH_SHORT)
+							.show();
+				}
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
