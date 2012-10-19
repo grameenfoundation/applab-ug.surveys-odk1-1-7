@@ -1246,7 +1246,7 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
                                             f.delete();
                                         }
                                     }
-                                    discardChanges();
+                                    
                                     finishReturnInstance();
                                     break;
 
@@ -1767,17 +1767,6 @@ public class FormEntryActivity extends Activity implements AnimationListener, Fo
         next();
     }
     
-	private void discardChanges() {
-		File backupFile = new File(mInstancePath + ".bak");
-		if (backupFile.exists()) {
-			backupFile.renameTo(new File(mInstancePath));
-		} else {
-			File file = new File(mInstancePath);
-			if (file.exists()) {
-				file.delete();
-			}
-		}
-	}
 
 	private void executeAutoSave() throws UnsupportedEncodingException,
 			IOException {

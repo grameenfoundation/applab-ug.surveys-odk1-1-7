@@ -213,7 +213,7 @@
 <string name="save_as_error">Saved name must not be blank!</string>
 <string name="form_name">Form Name:</string>
 <string name="edit_prompt">Edit Prompt</string>
-<string name="app_version">1.1.7</string>
+<string name="app_version">4.2.2</string>
 <string name="odk_version">1.1.7</string>
 <string name="empty_respondent_id">Respondent\'s ID cannot be empty</string>
 <string name="empty_farmer_id">Farmer\'s ID cannot be empty</string>

@@ -74,4 +74,11 @@ public class FileReference implements Reference {
         return getInternalURI();
     }
 
+
+    @Override
+    public Reference[] probeAlternativeReferences() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

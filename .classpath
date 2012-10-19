@@ -2,14 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="lib/apache-mime4j-0.6.jar"/>
-	<classpathentry kind="lib" path="lib/httpmime-4.0.jar"/>
-	<classpathentry kind="lib" path="lib/javarosa-libraries.jar"/>
-	<classpathentry kind="lib" path="lib/regexp-me.jar"/>
-	<classpathentry kind="lib" path="lib/kxml2-2.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/joda-time-2.0.jar"/>
-	<classpathentry kind="lib" path="/CommonClient/lib/acra-4.2.3.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="src" path="CommonClient_src"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/applab-ug.common-client"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.common-client/libs/acra-4.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/httpmime-4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/javarosa-libraries.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/joda-time-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/kxml2-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Code/Applab/applab-ug.surveys-odk1-1-7/libs/regexp-me.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

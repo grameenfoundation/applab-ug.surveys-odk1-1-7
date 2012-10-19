@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.javarosa.core.model.FormIndex;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.provider.InstanceProviderAPI;
 import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
@@ -101,7 +102,7 @@ public class InstanceChooserList extends ListActivity {
         Uri instanceUri =
             ContentUris.withAppendedId(InstanceColumns.CONTENT_URI,
                 c.getLong(c.getColumnIndex(InstanceColumns._ID)));
-        makeBackupFile(instanceUri.getPath());
+        
         String action = getIntent().getAction();
         if (Intent.ACTION_PICK.equals(action)) {
             // caller is waiting on a picked form
@@ -133,29 +134,4 @@ public class InstanceChooserList extends ListActivity {
         mAlertDialog.setButton(getString(R.string.ok), errorListener);
         mAlertDialog.show();
     }
-
-	private void makeBackupFile(String instancePath) {
-		Log.d("instancePath",instancePath);
-		File actualFile = new File(instancePath);
-        File backupFile = new File(instancePath + ".bak");
-        try {
-			FileInputStream inputStream = new FileInputStream(actualFile);
-			FileOutputStream outputStream = new FileOutputStream(backupFile);
-			
-			byte[] inputBuffer = new byte[Byte.MAX_VALUE];
-	        int len;
-
-	        while ((len = inputStream.read(inputBuffer)) > 0) {
-	            outputStream.write(inputBuffer, 0, len);
-	        }
-
-	        inputStream.close();
-	        outputStream.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

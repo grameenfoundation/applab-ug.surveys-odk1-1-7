@@ -106,7 +106,7 @@
 <string name="longitude">Longitud</string>
 <string name="main_menu">Menu principal</string>
 <string name="main_menu_details">Recoleccion de datos mucho mas facil...</string>
-<string name="main_menu_message">ODK Collect v1.1.7</string>
+<string name="main_menu_message">CKW Surveys 4.2.2</string>
 <string name="manage_files">Eliminar formularios</string>
 <string name="mark_finished">Marcar formulario como finalizado</string>
 <string name="no">No</string>
@@ -163,7 +163,7 @@
 <string name="url_error">URL invalida</string>
 <string name="username">Usuario</string>
 <string name="view_hierarchy">Ver preguntas</string>
-<string name="open_data_kit">CKW Search</string>
+<string name="open_data_kit">CKW Surveys</string>
 <string name="general_preferences">Cambiar ajustes</string>
 <string name="click_to_web">Ir a http://grameenfoundation.org</string>
 <string name="first_run">Realice primer ejecución al reinicio</string>
@@ -213,7 +213,7 @@
 <string name="save_as_error">El nombre no puede estar en blanco!</string>
 <string name="form_name">Nombre de formulario:</string>
 <string name="edit_prompt">Interfaz de edición</string>
-<string name="app_version">1.1.7</string>
+<string name="app_version">4.2.2</string>
 <string name="odk_version">1.1.7</string>
 <string name="empty_respondent_id">El ID del productor no puede estar en blanco</string>
 <string name="empty_farmer_id">El ID del productor no puede estar en blanco</string>

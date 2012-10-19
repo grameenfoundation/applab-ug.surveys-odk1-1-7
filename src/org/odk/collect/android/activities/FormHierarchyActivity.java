@@ -340,7 +340,7 @@ public class FormHierarchyActivity extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        HierarchyElement h = (HierarchyElement) l.getItemAtPosition(position);
+      /*  HierarchyElement h = (HierarchyElement) l.getItemAtPosition(position);
         if (h.getFormIndex() == null) {
             goUpLevel();
             return;
@@ -384,6 +384,7 @@ public class FormHierarchyActivity extends ListActivity {
         itla.setListItems(formList);
         setListAdapter(itla);
         getListView().setSelection(position);
+        */
     }
 
 
