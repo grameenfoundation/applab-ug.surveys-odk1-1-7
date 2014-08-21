@@ -77,6 +77,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, HashMap<Strin
     
     public static final String SURVEY_LOCATION_HEADER = "x-applab-survey-location";
     public static final String INTERVIEWEEID_HEADER = "x-applab-interviewee-id";
+    public static final String RESPONSE = "message";
     private static final String fail = "Error: ";
 
     private URI mAuthRequestingServer;
@@ -422,8 +423,12 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, HashMap<Strin
                             if (responseCode == 200) {
                                 mResults.put(id, fail + "Network login failure? Again?");
                             } else {
-                                mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
-                                        + " (" + responseCode + ") at " + urlString);
+                                if(response.containsHeader(RESPONSE)){
+                                    mResults.put(id, fail + response.getHeaders(RESPONSE)[0].getValue());
+                                } else {
+                                    mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
+                                            + " (" + responseCode + ") at " + urlString);
+                                }
                             }
                             cv.put(InstanceColumns.STATUS,
                                 InstanceProviderAPI.STATUS_SUBMISSION_FAILED);
